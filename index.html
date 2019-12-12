@@ -21,11 +21,31 @@
 	<style>
 		body { margin:0; padding:0; }
 		#map { position: absolute; top:100; bottom:0; right:0; left:0; height: 500px; width: 500px;}
-		input{ width:300px;}	
+		input{ width:300px;}
+		#crimes	{ position: absolute; top:650; bottom:0; right:0; left:0; }
+		table,th,td { border: 1px solid black; }
 	</style>
 </head>
-<body onload="Init()">
-	<div id="map"></div>
+<body onload="Init();">
+	<div id="app">
+		<div id="map"></div><br>
+		
+		<table id="crimes">
+			
+			<th>Date</th>
+			<th>Time</th>
+			<th>Incident</th>
+			<th>Grid</th>
+			<th>Neighborhood</th>
+			<th>Block</th>
+			
+			<tr v-for="crime in crime_data">
+				<td v-for="(item, index) in crime" v-if="index!=='code'">
+					{{ item }}
+				</td>
+			</tr>
+		</table>
+	</div>
 
 </body>
 </html>
