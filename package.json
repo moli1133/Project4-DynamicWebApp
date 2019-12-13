@@ -1,0 +1,31 @@
+{
+    "name": "RESTful-server",
+    "version": "0.0.0",
+    "description": "RESTful Server using Node JS",
+    "author": {
+        "name": "Leo Molitor",
+        "email": "moli1133@stthomas.edu"
+    },
+    "contributors": [
+        {
+            "name": "Lao",
+            "email": "lee03366@stthomas.edu"
+        },
+        {
+            "name": "",
+            "email": ""
+        }
+    ],
+    "main": "server.js",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "js2xmlparser": "^4.0.0",
+        "sqlite3": "^4.1.0",
+        "sqlstring": "^2.3.1"
+    }
+}
