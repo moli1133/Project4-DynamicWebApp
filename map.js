@@ -132,10 +132,12 @@ function Init(){
 			L.marker([44.951351, -93.094627])
 				.bindPopup('Downtown').addTo(district);
 
+			var baselayer;
+
 			var overlays = {
 				"Neighborhood": district
 			};
-			L.control.layers(overlays).addTo(map);
+			L.control.layers(baselayer, overlays).addTo(map);
 		
 			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 				attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
