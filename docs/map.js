@@ -43,9 +43,6 @@ function Init(){
 				cur_crime.neighborhood_number=neighborhoods["N"+cur_crime.neighborhood_number];
 			}
 			
-			//Change neighborhood_number into the name of the neighborhood
-			alert("N"+initial_crime.neighborhood_number);
-			
 			var app = new Vue({
 				el:"#app",
 				data:{
