@@ -1,11 +1,29 @@
-function Init(){
+function Prompt() {
+	$("#dialog-form").dialog({
+		autoOpen: true,
+		modal: true,
+		width: "360px",
+		buttons: {
+			"Ok": function() {
+				var prompt_input = $("#prompt_input");
+				Init(prompt_input.val());
+				$(this).dialog("close");
+			},
+			"Cancel": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+}
 
+function Init(crime_api_url){
 
-	
 	//Change to port that is input on page load
-	var port = 8000;
+	//var port = 8000;
 	//Change to cisc-dean.sthomas.edu before we turn it in
-	var host = "localhost";
+	//var host = "localhost";
+	
+	
 	var neighborhoods = {
 		N1:"Conway\/Battlecreek\/Highwood",
 		N2:"Greater East Side",
@@ -29,7 +47,7 @@ function Init(){
 	//Initial crime data from incidents api to use when page loads
 	var initial_crime;
 	var xhttp = new XMLHttpRequest();				
-	var url= 'http://'+host+':'+port+'/incidents?start_date=2019-10-01&end_date=2019-10-31';
+	var url = crime_api_url+'/incidents?start_date=2019-10-01&end_date=2019-10-31';
 	//Making API call so that the table can be loadedwhen the page is loaded
 	xhttp.open("GET",url);
 	xhttp.send();
@@ -76,7 +94,7 @@ function Init(){
 					},
 					updateCrimeData: function () {
 						var xhttp = new XMLHttpRequest();
-						var url= 'http://localhost:8000/incidents?start_date=2019-10-01&end_date=2019-10-31';
+						var url= crime_api_url+'/incidents?start_date=2019-10-01&end_date=2019-10-31';
 						xhttp.open("GET",url);
 						xhttp.send();
 						xhttp.onreadystatechange = function() {
