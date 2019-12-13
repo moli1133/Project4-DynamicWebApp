@@ -43,6 +43,9 @@ function Init(){
 				cur_crime.neighborhood_number=neighborhoods["N"+cur_crime.neighborhood_number];
 			}
 			
+			//Change neighborhood_number into the name of the neighborhood
+			alert("N"+initial_crime.neighborhood_number);
+			
 			var app = new Vue({
 				el:"#app",
 				data:{
@@ -62,15 +65,12 @@ function Init(){
 							
 						} else {
 							var xhttp = new XMLHttpRequest();
-							console.log(temp[0]);
 							var url= 'https://nominatim.openstreetmap.org/search?street='+temp[0]+"&city=St Paul&format=json";
 							xhttp.open("GET",url);
 							xhttp.send();
 							xhttp.onreadystatechange = function() {
 								if(this.readyState == 4 && this.status == 200) {
 									var address = JSON.parse(xhttp.responseText);
-									console.log(address[0].lat);
-									console.log(address[0].lon);
 									var coordinates = L.latLng(parseFloat(address[0].lat),parseFloat(address[0].lon));
 									map.setView(coordinates, 18);
 								}
@@ -88,12 +88,54 @@ function Init(){
 								console.log(JSON.stringify(this.crime_data, null, 2));
 							}
 						}
-					}
+					},
 				}
+				
 			});	
 
 			var map = L.map('map').setView([44.938500,-93.094225], 12);
 			map.setMaxBounds([[44.892384,-93.206011],[44.991944,-93.005194]]);
+
+			var district = new L.LayerGroup();
+			L.marker([44.944815, -93.014889])
+				.bindPopup('Conway/Battlecreek/Highwood').addTo(district),
+			L.marker([44.977033, -93.032956])
+				.bindPopup('Greater East Side').addTo(district),
+			L.marker([44.930543, -93.086694])
+				.bindPopup('West Side').addTo(district),
+			L.marker([44.956876, -93.055893])
+				.bindPopup('Dayton Bluff').addTo(district),
+			L.marker([44.975685, -93.065996])
+				.bindPopup('Payne-Phalen').addTo(district),
+			L.marker([44.978171, -93.105004])
+				.bindPopup('North End').addTo(district),
+			L.marker([44.959382, -93.116987])
+				.bindPopup('Thomas-Dale/Frogtown').addTo(district),
+			L.marker([44.950647, -93.126231])
+				.bindPopup('Summit-University').addTo(district),
+			L.marker([44.931005, -93.121799])
+				.bindPopup('West 7th/Fort Road').addTo(district),
+			L.marker([44.981826, -93.149729])
+				.bindPopup('Como').addTo(district),
+			L.marker([44.962862, -93.167064])
+				.bindPopup('Hamline-Midway').addTo(district),
+			L.marker([44.969508, -93.197712])
+				.bindPopup('St. Anthony Park').addTo(district),
+			L.marker([44.948381, -93.180605])
+				.bindPopup('Union Park').addTo(district),
+			L.marker([44.934265, -93.167002])
+				.bindPopup('Macalaster-Groveland').addTo(district),
+			L.marker([44.912574, -93.177182])
+				.bindPopup('Highland').addTo(district),
+			L.marker([44.936764, -93.139100])
+				.bindPopup('Summit Hill').addTo(district),
+			L.marker([44.951351, -93.094627])
+				.bindPopup('Downtown').addTo(district);
+
+			var overlays = {
+				"Neighborhood": district
+			};
+			L.control.layers(overlays).addTo(map);
 		
 			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 				attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
@@ -104,7 +146,7 @@ function Init(){
 			}).addTo(map);
 
 			
-
+			
 			/* This was just testing the leaflet functionality to help me understand it
 			var bounds = map.getBounds();
 			console.log("MaxBounds: " + bounds.getNorthEast());
@@ -132,21 +174,7 @@ function Init(){
 			});
 			*/
 			
-/*
-<<<<<<< HEAD
-<<<<<<< HEAD
-			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-				attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-				maxZoom: 18,
-				minZoom: 11,
-				id: 'mapbox/streets-v11',
-				accessToken: 'pk.eyJ1IjoibGVlMDMzNjYiLCJhIjoiY2szemJ5ZHB2MW4wNjNudDZ6NmozNjI5byJ9.031whUscC0xfmxgrOKEOQA'
-			}).addTo(map);
-=======
->>>>>>> d2c3db0521836e9d6a5ac5a20faa033a269062a4
-=======
->>>>>>> d2c3db0521836e9d6a5ac5a20faa033a269062a4
-*/
+
 		}
 	}
 }
