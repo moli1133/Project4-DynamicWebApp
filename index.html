@@ -45,8 +45,15 @@
 	</style>
 </head>
 
-<body onload="Init();">
-	<div class="container mt-3 mt-sm-5" id="app">
+<body onload="Prompt();">
+	<!-- Prompt -->
+	<div id="dialog-form">
+		<label for="name">URL for St. Paul Crime API:</label>
+		<input type="text" id="prompt_input" class="text ui-widget-content ui-corner-all" style="width: 320px;"/>
+	</div>
+	<!-- End: Prompt -->
+	
+	<div id="app">
 		<div id="map"></div><br>
 
 		<input v-model="message" placeholder="enter">
@@ -58,12 +65,6 @@
 					id="end" @input="handleDateInput" type="date" /> <button>Filter</button>
 			</div>
 		</form>
-
-		<!-- 
-			<input class="inputbar" v-model="startdate" placeholder= "start date">
-			<input class="inputbar" v-model="enddate" placeholder= "end date">
-			<button type="subbutton" @click="submit">submit</button> -->
-
 
 		<table id="crimes">
 

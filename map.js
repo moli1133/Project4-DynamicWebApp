@@ -1,10 +1,28 @@
+function Prompt() {
+	$("#dialog-form").dialog({
+		autoOpen: true,
+		modal: true,
+		width: "360px",
+		buttons: {
+			"Ok": function() {
+				var prompt_input = $("#prompt_input");
+				Init(prompt_input.val());
+				$(this).dialog("close");
+			},
+			"Cancel": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+}
 
-function Init(){
+function Init(crime_api_url){
 	
 	//Change to port that is input on page load
-	var port = 8000;
+	//var port = 8000;
 	//Change to cisc-dean.sthomas.edu before we turn it in
-	var host = "localhost";
+	//var host = "localhost";
+
 	var neighborhoods = {
 		N1:"Conway\/Battlecreek\/Highwood",
 		N2:"Greater East Side",
@@ -34,7 +52,7 @@ function Init(){
 	xhttp.onreadystatechange = function() {
 		if(this.readyState == 4 && this.status == 200) {
 			const initial_crime = JSON.parse(xhttp.responseText);
-			let neighborhoodCrimeCount = Object.entries(_.groupBy(Object.values(initial_crime), 'neighborhood_number')).map(([k, v]) => );
+			let neighborhoodCrimeCount = Object.entries(_.groupBy(Object.values(initial_crime), 'neighborhood_number')).map(([k, v]) => v.length);
 			
 			for(let i = 0; i < Object.keys(initial_crime).length; i++) {
 				const cur_crime = initial_crime[Object.keys(initial_crime)[i]];
@@ -72,8 +90,8 @@ function Init(){
 						fetch(`http://${host}:${port}/incidents?start_date=${this.startDate}&end_date=${this.endDate}`).then(res => res.json())
 						.then(res => {
 							this.crime_data = res;
-							console.log('yooooo', _.groupBy(Object.values(this.crime_data), 'neighborhood_number'));
-							neighborhoodCrimeCount = _.groupBy(Object.values(initial_crime), 'neighborhood_number');
+							//console.log('I hate this', _.groupBy(Object.values(this.crime_data), 'neighborhood_number'));
+							neighborhoodCrimeCount = Object.entries(_.groupBy(Object.values(initial_crime), 'neighborhood_number')).map(([k, v]) => v.length);
 						}).catch(err => console.log('errrrrr', err));
 					},				
 					submit: function () {
@@ -98,7 +116,7 @@ function Init(){
 					},
 					updateCrimeData: function () {
 						var xhttp = new XMLHttpRequest();
-						var url= 'http://localhost:8000/incidents?start_date=2019-10-01&end_date=2019-10-31';
+						var url= crime_api_url+'/incidents?start_date=2019-10-01&end_date=2019-10-31';
 						xhttp.open("GET",url);
 						xhttp.send();
 						xhttp.onreadystatechange = function() {
@@ -115,42 +133,41 @@ function Init(){
 
 			var map = L.map('map').setView([44.938500,-93.094225], 12);
 			map.setMaxBounds([[44.892384,-93.206011],[44.991944,-93.005194]]);
-
 			var district = new L.LayerGroup();
 			L.marker([44.944815, -93.014889])
-				.bindPopup(`Conway/Battlecreek/Highwood - ${neighborhoodCrimeCount[1]}`).addTo(district),
+				.bindPopup(`Conway/Battlecreek/Highwood - ${neighborhoodCrimeCount[0]}`).addTo(district),
 			L.marker([44.977033, -93.032956])
-				.bindPopup(`Greater East Side - ${neighborhoodCrimeCount[2]}`).addTo(district),
+				.bindPopup(`Greater East Side - ${neighborhoodCrimeCount[1]}`).addTo(district),
 			L.marker([44.930543, -93.086694])
-				.bindPopup('West Side').addTo(district),
+				.bindPopup(`West Side - ${neighborhoodCrimeCount[2]}`).addTo(district),
 			L.marker([44.956876, -93.055893])
-				.bindPopup('Dayton Bluff').addTo(district),
+				.bindPopup(`Dayton Bluff - ${neighborhoodCrimeCount[3]}`).addTo(district),
 			L.marker([44.975685, -93.065996])
-				.bindPopup('Payne-Phalen').addTo(district),
+				.bindPopup(`Payne-Phalen - ${neighborhoodCrimeCount[4]}`).addTo(district),
 			L.marker([44.978171, -93.105004])
-				.bindPopup('North End').addTo(district),
+				.bindPopup(`North End - ${neighborhoodCrimeCount[5]}`).addTo(district),
 			L.marker([44.959382, -93.116987])
-				.bindPopup('Thomas-Dale/Frogtown').addTo(district),
+				.bindPopup(`Thomas-Dale/Frogtown - ${neighborhoodCrimeCount[6]}`).addTo(district),
 			L.marker([44.950647, -93.126231])
-				.bindPopup('Summit-University').addTo(district),
+				.bindPopup(`Summit-University - ${neighborhoodCrimeCount[7]}`).addTo(district),
 			L.marker([44.931005, -93.121799])
-				.bindPopup('West 7th/Fort Road').addTo(district),
+				.bindPopup(`West 7th/Fort Road - ${neighborhoodCrimeCount[8]}`).addTo(district),
 			L.marker([44.981826, -93.149729])
-				.bindPopup('Como').addTo(district),
+				.bindPopup(`Como - ${neighborhoodCrimeCount[9]}`).addTo(district),
 			L.marker([44.962862, -93.167064])
-				.bindPopup('Hamline-Midway').addTo(district),
+				.bindPopup(`Hamline-Midway - ${neighborhoodCrimeCount[10]}`).addTo(district),
 			L.marker([44.969508, -93.197712])
-				.bindPopup('St. Anthony Park').addTo(district),
+				.bindPopup(`St. Anthony Park - ${neighborhoodCrimeCount[11]}`).addTo(district),
 			L.marker([44.948381, -93.180605])
-				.bindPopup('Union Park').addTo(district),
+				.bindPopup(`Union Park - ${neighborhoodCrimeCount[12]}`).addTo(district),
 			L.marker([44.934265, -93.167002])
-				.bindPopup('Macalaster-Groveland').addTo(district),
+				.bindPopup(`Macalaster-Groveland - ${neighborhoodCrimeCount[13]}`).addTo(district),
 			L.marker([44.912574, -93.177182])
-				.bindPopup('Highland').addTo(district),
+				.bindPopup(`Highland - ${neighborhoodCrimeCount[14]}`).addTo(district),
 			L.marker([44.936764, -93.139100])
-				.bindPopup('Summit Hill').addTo(district),
+				.bindPopup(`Summit Hill - ${neighborhoodCrimeCount[15]}`).addTo(district),
 			L.marker([44.951351, -93.094627])
-				.bindPopup('Downtown').addTo(district);
+				.bindPopup(`Downtown - ${neighborhoodCrimeCount[16]}`).addTo(district);
 
 			var baselayer;
 
