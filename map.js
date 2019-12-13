@@ -134,6 +134,7 @@ function Init(){
 			
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 				attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
 				maxZoom: 18,
@@ -141,6 +142,8 @@ function Init(){
 				id: 'mapbox/streets-v11',
 				accessToken: 'pk.eyJ1IjoibGVlMDMzNjYiLCJhIjoiY2szemJ5ZHB2MW4wNjNudDZ6NmozNjI5byJ9.031whUscC0xfmxgrOKEOQA'
 			}).addTo(map);
+=======
+>>>>>>> d2c3db0521836e9d6a5ac5a20faa033a269062a4
 =======
 >>>>>>> d2c3db0521836e9d6a5ac5a20faa033a269062a4
 		}
