@@ -132,7 +132,7 @@ function Init(){
 			});
 			*/
 			
-
+/*
 <<<<<<< HEAD
 <<<<<<< HEAD
 			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -146,6 +146,7 @@ function Init(){
 >>>>>>> d2c3db0521836e9d6a5ac5a20faa033a269062a4
 =======
 >>>>>>> d2c3db0521836e9d6a5ac5a20faa033a269062a4
+*/
 		}
 	}
 }
