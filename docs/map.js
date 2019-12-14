@@ -59,8 +59,25 @@ function Init(crime_api_url){
 				var cur_crime = initial_crime[Object.keys(initial_crime)[i]];
 				//Change neighborhood_number into the name of the neighborhood
 				cur_crime.neighborhood_number=neighborhoods["N"+cur_crime.neighborhood_number];
+				
+				if(cur_crime.code<500) {
+					cur_crime["violent"]=true;
+					cur_crime["property"]=false;
+					cur_crime["other"]=false;
+				}
+				else if(cur_crime.code>=500 && cur_crime.code<1800) {
+					cur_crime["violent"]=false;
+					cur_crime["property"]=true;
+					cur_crime["other"]=false;
+				}
+				else {
+					cur_crime["violent"]=false;
+					cur_crime["property"]=false;
+					cur_crime["other"]=true;
+				}		
+	
 			}
-			
+			console.log(JSON.stringify(initial_crime, null, 2));
 			var app = new Vue({
 				el:"#app",
 				data:{
@@ -162,7 +179,6 @@ function Init(crime_api_url){
 				accessToken: 'pk.eyJ1IjoibGVlMDMzNjYiLCJhIjoiY2szemJ5ZHB2MW4wNjNudDZ6NmozNjI5byJ9.031whUscC0xfmxgrOKEOQA'
 			}).addTo(map);
 
-			
 			
 			/* This was just testing the leaflet functionality to help me understand it
 			var bounds = map.getBounds();
