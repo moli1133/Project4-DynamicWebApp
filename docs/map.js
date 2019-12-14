@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+/*
 function Prompt() {
 	$("#dialog-form").dialog({
 		autoOpen: true,
@@ -206,12 +206,14 @@ function Init(crime_api_url){
 				console.log("XXXXX: " + data.lat_long_ne);
 				
 			});
-			*/
+
 			
 
 		}
 	}
-=======
+	
+	*/
+//=======
 function Prompt() {
 	$("#dialog-form").dialog({
 		autoOpen: true,
@@ -259,7 +261,7 @@ function Init(crime_api_url){
 
 	//Initial crime data from incidents api to use when page loads
 	var xhttp = new XMLHttpRequest();				
-	var url= `http://${host}:${port}/incidents?start_date=2019-10-01&end_date=2019-10-31`;
+	var url= crime_api_url+'/incidents?start_date=2019-10-01&end_date=2019-10-31';
 	//Making API call so that the table can be loadedwhen the page is loaded
 	xhttp.open("GET",url);
 	xhttp.send();
@@ -269,13 +271,26 @@ function Init(crime_api_url){
 			let neighborhoodCrimeCount = Object.entries(_.groupBy(Object.values(initial_crime), 'neighborhood_number')).map(([k, v]) => v.length);
 			
 			for(let i = 0; i < Object.keys(initial_crime).length; i++) {
-				const cur_crime = initial_crime[Object.keys(initial_crime)[i]];
+				var cur_crime = initial_crime[Object.keys(initial_crime)[i]];
 				//Change neighborhood_number into the name of the neighborhood
 				cur_crime.neighborhood_number=neighborhoods["N"+cur_crime.neighborhood_number];
+				
+				if(cur_crime.code<500 || (cur_crime.code>=800&&cur_crime.code<900)) {
+					cur_crime["violent"]=true;
+					cur_crime["property"]=false;
+					cur_crime["other"]=false;
+				}
+				else if(cur_crime.code>=500 && cur_crime.code<1800) {
+					cur_crime["violent"]=false;
+					cur_crime["property"]=true;
+					cur_crime["other"]=false;
+				}
+				else {
+					cur_crime["violent"]=false;
+					cur_crime["property"]=false;
+					cur_crime["other"]=true;
+				}		
 			}
-			
-			//Change neighborhood_number into the name of the neighborhood
-			alert("N"+initial_crime.neighborhood_number);
 			
 			const app = new Vue({
 				el:"#app",
@@ -431,5 +446,4 @@ function Init(crime_api_url){
 
 		}
 	}
->>>>>>> 9b24dd85e8dc2b4c4b9fdca43fcd650cfe55bc5c
 }
