@@ -1,0 +1,9 @@
+Name: Lao Lee
+Gender: Male
+Major: Computer Science
+Ethnicity: Hmong
+
+3 Things I found interesting 
+1. Majority of crimes happened in downtown St. Paul
+2. Proactive police visit seems to be the most crime reported
+3.Table that shows crime goes from latest to earliest date
